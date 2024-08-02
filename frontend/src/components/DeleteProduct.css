@@ -1,0 +1,50 @@
+/* DeleteProduct.css */
+.delete-product {
+    padding: 1rem;
+    background-color: #f7fafc;
+  }
+  
+  .delete-product h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #2b6cb0;
+    margin-bottom: 1rem;
+  }
+  
+  .delete-product p {
+    text-align: center;
+    color: #38a169;
+    margin-bottom: 1rem;
+  }
+  
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .product-table th, .product-table td {
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+  }
+  
+  .product-table th {
+    background-color: #f7fafc;
+  }
+  
+  .product-table tbody tr:nth-child(odd) {
+    background-color: #f7fafc;
+  }
+  
+  .product-table button {
+    padding: 0.5rem 1rem;
+    background-color: #e53e3e;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .product-table button:hover {
+    background-color: #c53030;
+  }
+  

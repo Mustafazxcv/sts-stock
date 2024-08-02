@@ -19,25 +19,21 @@ ChartJS.register(
   LinearScale
 );
 
-const SizeChart = ({ sizeCounts = [] }) => {
-  if (!sizeCounts || sizeCounts.length === 0) {
-    return <div>Veri bulunamadı.</div>;
-  }
-
+const ProductNameChart = ({ productNameCounts = [] }) => {
   const data = {
-    labels: sizeCounts.map(size => size.size),
+    labels: productNameCounts.map(product => product.name),
     datasets: [{
-      data: sizeCounts.map(size => size.count),
+      data: productNameCounts.map(product => product.quantity),
       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF6347', '#36EB7D']
     }]
   };
 
   return (
     <div className="chart-container">
-      <h2>Boyut Dağılımı</h2>
+      <h2>Ürün İsimlerine Göre Dağılım</h2>
       <Pie data={data} />
     </div>
   );
 };
 
-export default SizeChart;
+export default ProductNameChart;

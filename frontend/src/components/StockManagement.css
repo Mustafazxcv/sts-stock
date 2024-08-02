@@ -1,0 +1,71 @@
+.stock-management {
+  padding: 20px;
+}
+
+.stock-management h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.stock-management .search-bar {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.stock-management table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.stock-management th, .stock-management td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.stock-management th {
+  background-color: #f2f2f2;
+}
+
+.stock-management input {
+  width: 60px;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.stock-management button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.stock-management button:hover {
+  background-color: #45a049;
+}
+
+/* Mobil uyum */
+@media (max-width: 768px) {
+  .stock-management table {
+    font-size: 12px;
+  }
+
+  .stock-management th, .stock-management td {
+    padding: 5px;
+  }
+
+  .stock-management input {
+    width: 50px;
+    padding: 3px;
+  }
+
+  .stock-management button {
+    padding: 3px 8px;
+  }
+}

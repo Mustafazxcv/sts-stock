@@ -1,52 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './Dashboard.css';
 import CategoryChart from './CategoryChart';
 import SizeChart from './SizeChart';
 import ProductList from './ProductList';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
-  const [totalProducts, setTotalProducts] = useState(0);
-  const [categoryCounts, setCategoryCounts] = useState([]);
-  const [sizeCounts, setSizeCounts] = useState([]);
   const [products, setProducts] = useState([]);
-  const [currentCategory, setCurrentCategory] = useState('All');
+  const [analytics, setAnalytics] = useState({ categoryCounts: [], sizeCounts: [] });
 
   useEffect(() => {
-    const fetchAnalytics = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/products/analytics');
-        setTotalProducts(response.data.totalProducts);
-        setCategoryCounts(response.data.categoryCounts || []);
-        setSizeCounts(response.data.sizeCounts || []);
-      } catch (error) {
-        toast.error("Veri alınırken bir hata oluştu.");
-      }
-    };
-
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/products');
-        setProducts(response.data);
-      } catch (error) {
-        toast.error("Ürünler alınırken bir hata oluştu.");
-      }
-    };
-
-    fetchAnalytics();
     fetchProducts();
+    fetchAnalytics();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/products');
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Ürünleri alırken hata oluştu:', error);
+    }
+  };
+
+  const fetchAnalytics = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/products/analytics');
+      setAnalytics(response.data);
+    } catch (error) {
+      console.error('Analiz verilerini alırken hata oluştu:', error);
+      setAnalytics({ categoryCounts: [], sizeCounts: [] });
+    }
+  };
 
   return (
     <div className="dashboard">
-      <h1>Dashboard</h1>
-      <div className="analytics">
-        <CategoryChart categoryCounts={categoryCounts} />
-        <SizeChart sizeCounts={sizeCounts} />
-      </div>
-      <ProductList products={products} category={currentCategory} />
-      <ToastContainer />
+      <header className="dashboard-header">
+        <h1>İş Yönetim Sistemi</h1>
+      </header>
+      <section className="analytics">
+        <CategoryChart categoryCounts={analytics.categoryCounts} />
+        <SizeChart sizeCounts={analytics.sizeCounts} />
+      </section>
+      <section className="products">
+        <ProductList products={products} />
+      </section>
     </div>
   );
 };

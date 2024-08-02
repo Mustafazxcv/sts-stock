@@ -19,12 +19,16 @@ ChartJS.register(
   LinearScale
 );
 
-const CategoryChart = ({ categoryCounts }) => {
+const CategoryChart = ({ categoryCounts = [] }) => {
+  if (!categoryCounts || categoryCounts.length === 0) {
+    return <div>Veri bulunamadı.</div>;
+  }
+
   const data = {
-    labels: categoryCounts.map(category => category.name),
+    labels: categoryCounts.map(category => `${category.category} (${category.totalquantity})`),
     datasets: [{
-      data: categoryCounts.map(category => category.count),
-      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+      data: categoryCounts.map(category => category.totalquantity),
+      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF6347', '#36EB7D']
     }]
   };
 

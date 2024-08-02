@@ -44,14 +44,29 @@ const Layout = () => {
                 <Link to="/add-category" className="hover:text-gray-300" onClick={toggleMenu}>Kategori Ekle</Link>
               </li>
               <li className="p-4 border-b border-gray-700">
-                <Link to="/track-product" className="hover:text-gray-300" onClick={toggleMenu}>Ürün Takip Et</Link>
+                <Link to="/delete-category-size" className="hover:text-gray-300" onClick={toggleMenu}>Kategori ve Boyut Sil</Link>
               </li>
               <li className="p-4 border-b border-gray-700">
-                <Link to="/delete-category-size" className="hover:text-gray-300" onClick={toggleMenu}>Kategori ve Boyut Sil</Link>
+                <Link to="/cost-calculator" className="hover:text-gray-300" onClick={toggleMenu}>Maliyet Hesapla</Link>
+              </li>
+              <li className="p-4 border-b border-gray-700">
+                <Link to="/delete-product" className="hover:text-gray-300" onClick={toggleMenu}>Ürün Sil</Link>
+              </li>
+              <li className="p-4 border-b border-gray-700">
+                <Link to="/stock-management" className="hover:text-gray-300" onClick={toggleMenu}>Stok Yönetimi</Link>
+              </li>
+              <li className="p-4 border-b border-gray-700">
+                <Link to="/all-products" className="hover:text-gray-300" onClick={toggleMenu}>Tüm Ürünler</Link>
               </li>
               <li className="p-4 border-b border-gray-700">
                 <button className="hover:text-gray-300" onClick={handleLogout}>Çıkış Yap</button>
               </li>
+              <br></br>
+              <center>
+              <footer className="p-4 border-b border-gray-700">
+        &copy; 2024 Ömer Faruk Seçer. Tüm hakları saklıdır.
+      </footer>
+              </center>
             </ul>
           </nav>
         </div>

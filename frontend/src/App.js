@@ -6,7 +6,12 @@ import Dashboard from './components/Dashboard';
 import AddProduct from './components/AddProduct';
 import AddCategory from './components/AddCategory';
 import DeleteCategorySize from './components/DeleteCategorySize';
+import CostCalculator from './components/CostCalculator';
 import Layout from './components/Layout';
+import ProductListNew from './components/ProductListNew'; // Doğru isimle içe aktarıyoruz
+import AllProducts from './components/AllProducts'; 
+import DeleteProduct from './components/DeleteProduct';
+import StockManagement from './components/StockManagement'; 
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
@@ -57,6 +62,11 @@ function App() {
           <Route path="/add-category" element={<AddCategory />} />
           <Route path="/track-product" element={<h2>Ürün Takip Sayfası</h2>} />
           <Route path="/delete-category-size" element={<DeleteCategorySize />} />
+          <Route path="/cost-calculator" element={<CostCalculator />} />
+          <Route path="/products" element={<ProductListNew />} />
+          <Route path="/all-products" element={<AllProducts />} /> 
+          <Route path="/delete-product" element={<DeleteProduct />} />
+          <Route path="/stock-management" element={<StockManagement />} />
         </Route>
       </Routes>
     </Router>

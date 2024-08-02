@@ -74,6 +74,15 @@ const getSizes = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
+  const getCategoryDistribution = async (req, res) => {
+    try {
+      const result = await pool.query('SELECT category, COUNT(*) as count FROM products GROUP BY category');
+      res.status(200).json(result.rows);
+    } catch (error) {
+      console.error('Kategori dağılımı alınırken hata oluştu:', error.message);
+      res.status(500).json({ error: error.message });
+    }
+  };
 module.exports = {
   addCategory,
   addSize,
@@ -81,4 +90,5 @@ module.exports = {
   getSizes,
   deleteCategory,
   deleteSize,
+  getCategoryDistribution,
 };

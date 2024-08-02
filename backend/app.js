@@ -6,6 +6,7 @@ const productRoutes = require('./routes/productRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes'); // Yeni dosyamızı ekliyoruz
+const costRoutes = require('./routes/costRoutes');
 const path = require('path');
 
 const app = express();
@@ -18,6 +19,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api', analyticsRoutes); // Yeni route'u ekliyoruz
+app.use('/api/cost', costRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
