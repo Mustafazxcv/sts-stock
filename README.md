@@ -1,62 +1,111 @@
-# Depo Kontrolü
+# Stok Takip Sistemi
 
-Depo Kontrolü, ürünleri yönetmek ve analiz etmek için geliştirilmiş bir web uygulamasıdır. Bu uygulama, ürün ekleme, ürün listeleme, analiz raporları oluşturma ve kategori yönetimi gibi işlevleri destekler.
+Bu proje, bir stok takip sistemi uygulamasıdır. Ürünleri ekleyebilir, silebilir, güncelleyebilir ve stok giriş/çıkış işlemlerini gerçekleştirebilirsiniz. Ayrıca, kategoriye göre ürün dağılımı ve boyutlara göre ürün dağılımını pasta grafikleri ile görselleştirebilirsiniz.
 
 ## Özellikler
 
-- Ürün ekleme, güncelleme ve silme
-- Ürünlerin kategorilere göre yönetimi
-- Ürünlerin boyutlarına göre analiz
-- Kategori bazlı analiz ve raporlama
-- Ürünler için görsel yükleme
+- Ürün ekleme, silme ve güncelleme
+- Stok giriş ve çıkış işlemleri
+- Kategoriye göre ürün dağılımı grafiği
+- Boyutlara göre ürün dağılımı grafiği
+- Maliyet hesaplama ve güncelleme
+- Mobil uyumlu arayüz
 
-## Kurulum
+## Gereksinimler
 
-### Gereksinimler
+- Node.js
+- PostgreSQL
 
-- Node.js (v18.0.0 veya üstü)
-- PostgreSQL (veritabanı yönetim sistemi)
+### Backend
 
+1. Projeyi klonlayın:
 
+    ```bash
+    git clone https://github.com/Mustafazxcv/sts-stock.git
+    cd sts-stock/backend
+    ```
 
-## Ürünler tablosu
-CREATE TABLE products (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    quantity INT NOT NULL,
-    size VARCHAR(50) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    description TEXT,
-    image_url VARCHAR(255),
-    category_id INT REFERENCES categories(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+2. Gerekli paketleri yükleyin:
 
--- Kategoriler tablosu
-CREATE TABLE categories (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+    ```bash
+    npm install
+    ```
 
--- Yöneticiler tablosu
-CREATE TABLE admins (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+3. `.env` dosyasını oluşturun ve PostgreSQL bağlantı bilgilerinizi girin:
 
--- Analitikler tablosu (Opsiyonel, ihtiyaca göre eklenebilir)
--- Bu tablo, ürünlerle ilgili analitik verileri saklayabilir.
-CREATE TABLE product_analytics (
-    id SERIAL PRIMARY KEY,
-    total_products INT,
-    category_counts JSONB,
-    size_counts JSONB,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+    ```
+    DATABASE_URL=postgres://username:password@localhost:5432/stoktakip
+    ```
+
+4. Veritabanı tablolarını oluşturun:
+
+    ```sql
+    CREATE TABLE admins (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL
+    );
+
+    CREATE TABLE categories (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) UNIQUE NOT NULL
+    );
+
+    CREATE TABLE products (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      category VARCHAR(255) REFERENCES categories(name),
+      size VARCHAR(50),
+      price DECIMAL(10, 2) NOT NULL,
+      quantity INT NOT NULL,
+      description TEXT,
+      image_url VARCHAR(255)
+    );
+
+    CREATE TABLE units (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) UNIQUE NOT NULL,
+      price_per_unit DECIMAL(10, 2) NOT NULL
+    );
+
+    CREATE TABLE costs (
+      id SERIAL PRIMARY KEY,
+      unit_id INT REFERENCES units(id),
+      quantity DECIMAL(10, 2) NOT NULL,
+      total_cost DECIMAL(10, 2) NOT NULL
+    );
+    ```
+
+5. Sunucuyu başlatın:
+
+    ```bash
+    npm start
+    ```
+
+### Frontend
+
+1. Frontend dizinine gidin:
+
+    ```bash
+    cd ../frontend
+    ```
+
+2. Gerekli paketleri yükleyin:
+
+    ```bash
+    npm install
+    ```
+
+3. Uygulamayı başlatın:
+
+    ```bash
+    npm start
+    ```
+
+## Kullanım
+
+- Ana sayfada ürünlerin kategori ve boyutlarına göre dağılımını görebilirsiniz.
+- Ürünler sayfasında tüm ürünleri listeleyebilir ve detaylarını görebilirsiniz.
+- Ürün ekleyebilir, silebilir ve güncelleyebilirsiniz.
+- Stok giriş/çıkış işlemlerini gerçekleştirebilirsiniz.
+- Maliyet hesaplama sayfasında birim fiyatlarını güncelleyebilir ve maliyet hesaplaması yapabilirsiniz.
